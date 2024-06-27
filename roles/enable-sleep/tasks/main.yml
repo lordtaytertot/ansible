@@ -1,0 +1,14 @@
+---
+# tasks file for enable-sleep
+- name: enable sleep
+  become: true
+  systemd:
+    masked: false
+    name: "{{ item }}"
+  loop:
+    - sleep.target
+    - suspend.target
+    - hibernate.target
+    - hybrid-sleep.target
+    - suspend-then-hibernate.target
+  changed_when: false

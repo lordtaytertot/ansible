@@ -1,0 +1,62 @@
+---
+# tasks file for dionysus
+- name: install dionysus packages
+  become: true
+  package:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - cronie
+    - openal-soft
+    - SDL2-devel
+
+- name: enable crond
+  become: true
+  systemd:
+    state: started
+    enabled: true
+    masked: false
+    name: crond.service
+
+- name: keep soundbar alive
+  cron:
+    name: "Keep soundbar alive"
+    minute: "*/14"
+    job: "/usr/bin/paplay /mnt/zeus/Archive/Linux/Dionysus/19999.wav"
+
+- name: copy monitors.xml to /var/lib/gdm/.config/
+  become: true
+  copy:
+    src: monitors.xml
+    dest: /var/lib/gdm/.config/monitors.xml
+    owner: root
+    group: root
+    mode: 0644
+
+- name: copy monitors.xml to $HOME/.config/
+  copy:
+    src: monitors.xml
+    dest: "{{ ansible_env.HOME }}/.config/monitors.xml"
+    owner: james
+    group: james
+    mode: 0644
+
+- name: copy Ryujinx.svg to /usr/share/icons/
+  become: true
+  copy:
+    src: Ryujinx.svg
+    dest: /usr/share/icons/
+    owner: root
+    group: root
+    mode: 0644
+  notify: run update-desktop-database
+
+- name: copy Ryujinx.desktop to /usr/share/applications/
+  become: true
+  copy:
+    src: Ryujinx.desktop
+    dest: /usr/share/applications/
+    owner: root
+    group: root
+    mode: 0644
+  notify: run update-desktop-database

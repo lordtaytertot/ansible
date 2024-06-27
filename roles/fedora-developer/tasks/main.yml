@@ -1,0 +1,109 @@
+---
+# tasks file for fedora-developer
+- name: add visual studio code dnf repository
+  become: true
+  yum_repository:
+    file: vscode
+    name: code
+    description: Visual Studio Code repo
+    baseurl: https://packages.microsoft.com/yumrepos/vscode
+    gpgkey: https://packages.microsoft.com/keys/microsoft.asc
+    gpgcheck: true
+
+- name: install visual studio code
+  become: true
+  dnf:
+    name: code
+    state: present
+
+- name: install developer packages
+  become: true
+  package:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - freerdp
+    - git
+    - helm
+    - kubernetes-client
+    - podman
+
+- name: install podman-compose
+  pip:
+    name: podman-compose
+    extra_args: --user
+    state: present
+
+- name: configure git
+  copy:
+    src: .gitconfig
+    dest: ~/.gitconfig
+
+- name: configure cli environment and prompt
+  blockinfile:
+    path: "{{ ansible_env.HOME }}/.bashrc"
+    insertafter: '^export LIBVA_DRIVER_NAME=iHD'
+    block: |
+      # git-related
+      export GIT_PS1_SHOWCOLORHINTS=true
+      export GIT_PS1_SHOWDIRTYSTATE=true
+      export GIT_PS1_SHOWSTASHSTATE=true
+      export GIT_PS1_SHOWUNTRACKEDFILES=true
+      source /usr/share/doc/git/contrib/completion/git-prompt.sh
+
+      # kubernetes-related
+      source <( kubectl completion bash )
+      source <( helm completion bash )
+      alias k=kubectl
+      complete -o default -F __start_kubectl k
+
+      unset PROMPT_COMMAND
+      if [ -z $KUBIE_ACTIVE ]; then
+          export PROMPT_COMMAND='__git_ps1 "[\u@\h \w]" " \\$ "'
+      else
+          export PS1='[\u@\h \w]$(__git_ps1) \$ '
+      fi
+
+- name: create kube directory
+  file:
+    path: "{{ ansible_env.HOME }}/.kube"
+    state: directory
+
+- name: copy KUBECONFIG
+  copy:
+    src: config
+    dest: "{{ ansible_env.HOME }}/.kube/config"
+    mode: '0600'
+
+- name: install kubie
+  become: true
+  copy:
+    src: kubie
+    dest: /usr/local/bin/
+    mode: '0755'
+
+- name: configure kubie
+  copy:
+    src: kubie.yaml
+    dest: "{{ ansible_env.HOME }}/.kube/kubie.yaml"
+
+- name: install kubie bash completion
+  become: true
+  get_url:
+    url: https://raw.githubusercontent.com/sbstp/kubie/master/completion/kubie.bash
+    dest: /etc/bash_completion.d/
+    mode: '644'
+
+- name: install kustomize
+  become: true
+  copy:
+    src: kustomize
+    dest: /usr/local/bin/
+    mode: '755'
+
+- name: install kubectl-neat
+  become: true
+  copy:
+    src: kubectl-neat
+    dest: /usr/local/bin/
+    mode: '755'

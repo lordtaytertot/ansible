@@ -1,0 +1,10 @@
+---
+gnome_extensions:
+  - id: 517
+    enable: True
+  - id: 3733
+    enable: True
+  - id: 5470
+    enable: True
+  - id: 6162
+    enable: True

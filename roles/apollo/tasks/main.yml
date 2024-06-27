@@ -1,0 +1,34 @@
+---
+# tasks file for apollo
+- name: copy monitors.xml to /var/lib/gdm/.config/
+  become: true
+  copy:
+    src: monitors.xml
+    dest: /var/lib/gdm/.config/monitors.xml
+    owner: root
+    group: root
+    mode: 0644
+
+- name: copy monitors.xml to $HOME/.config/
+  copy:
+    src: monitors.xml
+    dest: "{{ ansible_env.HOME }}/.config/monitors.xml"
+    owner: james
+    group: james
+    mode: 0644
+
+- name: disable tiling assistant's tiling popup
+  dconf:
+    key: "/org/gnome/shell/extensions/tiling-assistant/enable-tiling-popup"
+    value: "false"
+
+- name: install additional packages
+  become: true
+  package:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - android-tools
+    - cups
+    - libnsl
+    - system-config-printer

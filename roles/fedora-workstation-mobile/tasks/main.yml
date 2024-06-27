@@ -1,0 +1,36 @@
+---
+# tasks file for fedora-workstation-mobile
+- name: install dnf automatic
+  become: true
+  package:
+    name: dnf-automatic
+    state: present
+
+- name: enable automatic installation of updates
+  become: true
+  lineinfile:
+    path: /etc/dnf/automatic.conf
+    regexp: '^apply_updates'
+    line: 'apply_updates = yes'
+
+- name: start and enable dnf-automatic.timer
+  become: true
+  systemd:
+    name: dnf-automatic-install.timer
+    state: started
+    enabled: true
+
+- name: enable suspend
+  dconf:
+    key: "/org/gnome/settings-daemon/plugins/power/sleep-inactive-ac-type"
+    value: "'nothing'"
+
+- name: set supsend timeout (battery)
+  dconf:
+    key: "/org/gnome/settings-daemon/plugins/power/sleep-inactive-battery-timeout"
+    value: "'900'"
+
+- name: set touchpad click method
+  dconf:
+    key: "/org/gnome/desktop/peripherals/touchpad/click-method"
+    value: "'areas'"

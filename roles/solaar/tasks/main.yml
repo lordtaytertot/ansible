@@ -1,0 +1,7 @@
+---
+# tasks file for solaar
+- name: install solaar
+  become: true
+  package:
+    name: solaar
+    state: present

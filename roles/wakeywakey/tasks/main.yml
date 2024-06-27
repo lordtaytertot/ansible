@@ -1,0 +1,22 @@
+---
+# tasks file for wakeywakey
+- name: wake apollo
+  wakeonlan:
+    mac: 14:b3:1f:2c:7a:ad
+  changed_when: false
+  when: wife != 'sleeping'
+
+- name: wake dionysus
+  wakeonlan:
+    mac: 8c:ec:4b:67:43:e9
+  changed_when: false
+
+- name: wake hypnos
+  wakeonlan:
+    mac: 64:00:6a:63:2c:16
+  changed_when: false
+
+- name: wake ares
+  become: true
+  command: /usr/sbin/ether-wake -i br0 a8:a1:59:08:2d:23
+  changed_when: false

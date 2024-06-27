@@ -1,0 +1,5 @@
+---
+# handlers file for intel
+- name: run dracut
+  become: true
+  command: /usr/bin/dracut --force

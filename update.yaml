@@ -1,0 +1,148 @@
+---
+- hosts: localhost
+  vars:
+    wife: awake
+  roles:
+    - wakeywakey
+  gather_facts: false
+  tasks:
+    - name: sleep for 10 seconds
+      pause:
+        seconds: 10
+
+- hosts: localhost
+  tasks:
+    - name: upgrade PyPI packages
+      pip:
+        name: "{{ item }}"
+        extra_args: --user
+        state: latest
+      register: pip_results
+      loop:
+        - pip
+        - ansible
+        - podman-compose
+        - yt-dlp
+    - name: display pip upgrade results
+      debug:
+        var: pip_results['results']|map(attribute='stdout_lines')|list
+
+- hosts: windows
+  gather_facts: false
+  tasks:
+    - name: upgrade all packages on windows hosts
+      win_updates:
+        category_names: '*'
+      register: windows_update_results
+    - name: display windows update results
+      debug:
+        var: windows_update_results
+
+- hosts: el
+  vars:
+    clean: false
+  become: true
+  tasks:
+    - name: clear dnf cache on el hosts
+      shell: dnf clean all
+      when: clean == 'true'
+      changed_when: false
+    - name: upgrade all packages on el hosts
+      dnf:
+        name: '*'
+        state: latest
+        update_cache: true
+      register: el_yum_result
+    - name: display dnf upgrade results
+      debug:
+        var: el_yum_result['results']
+
+- hosts: debian
+  become: true
+  tasks:
+    - name: upgrade all packages on debian-based hosts
+      apt:
+        update_cache: true
+        upgrade: dist
+      register: debian_based_apt_result
+    - name: display debian-based upgrade results
+      debug:
+        var: debian_based_apt_result['stdout_lines']
+
+- hosts: fedora
+  become: true
+  vars:
+    clean: false
+  roles:
+    - disable-sleep
+  tasks:
+    - name: refresh fwupdmgr
+      command: fwupdmgr refresh --force
+      changed_when: false
+    - name: get updates for fwupdmgr
+      command: fwupdmgr get-updates
+      register: get_updates_for_fwupdmgr
+      changed_when: get_updates_for_fwupdmgr['rc'] != 2
+      failed_when: false
+    - name: display fwupdmgr get-updates results
+      debug:
+        var: get_updates_for_fwupdmgr['stdout_lines']
+    - name: apply updates for fwupdmgr
+      command: fwupdmgr update
+      register: apply_updates_for_fwupdmgr
+      changed_when: "'Successfully installed firmware' in apply_updates_for_fwupdmgr['stdout']"
+      failed_when: false
+    - name: display fwupdmgr update results
+      debug:
+        var: apply_updates_for_fwupdmgr['stdout_lines']
+    - name: clear dnf cache on fedora hosts
+      shell: nice dnf clean all
+      when: clean == 'true'
+      changed_when: false
+    - name: upgrade all packages on fedora hosts
+      dnf:
+        name: '*'
+        state: latest
+        update_cache: true
+      register: fedora_dnf_result
+    - name: display dnf upgrade results
+      debug:
+        var: fedora_dnf_result['results']
+    - name: check if host needs restarting
+      command: /usr/bin/needs-restarting -r
+      register: fedora_needs_restarting_result
+      changed_when: "'Reboot should not be necessary.' not in fedora_needs_restarting_result['stdout']"
+      failed_when: false
+    - name: display needs restarting results
+      debug:
+        var: fedora_needs_restarting_result['stdout_lines']
+
+- hosts: fedora_dev
+  gather_facts: false
+  tasks:
+    - name: upgrade podman-compose
+      pip:
+        name: podman-compose
+        extra_args: --user
+        state: latest
+      register: fedora_dev_pip_results
+    - name: display podman-compose upgrade results
+      debug:
+        var: fedora_dev_pip_results['stdout_lines']
+
+- hosts: apollo
+  gather_facts: false
+  tasks:
+    - name: upgrade yt-dlp
+      pip:
+        name: yt-dlp
+        extra_args: --user
+        state: latest
+      register: apollo_pip_results
+    - name: display pip upgrade results
+      debug:
+        var: apollo_pip_results['stdout_lines']
+
+- hosts: fedora
+  roles:
+    - enable-sleep

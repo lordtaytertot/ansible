@@ -1,0 +1,7 @@
+[user]
+	name = Lord Taytertot
+	email = jamestaylor0213@gmail.com
+[init]
+	defaultBranch = main
+[push]
+	autoSetupRemote = true

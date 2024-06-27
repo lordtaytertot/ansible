@@ -1,0 +1,7 @@
+---
+- hosts: localhost
+  vars:
+    wife: awake
+  roles:
+    - wakeywakey
+  gather_facts: false

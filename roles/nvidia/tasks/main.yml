@@ -1,0 +1,69 @@
+---
+# tasks file for nvidia
+- name: copy akmods certificate
+  become: true
+  copy:
+    src: "public_key.der"
+    dest: /etc/pki/akmods/certs/
+    owner: root
+    group: akmods
+  notify:
+    - run akmods
+    - run dracut
+
+- name: copy akmods key
+  become: true
+  copy:
+    src: "private_key.priv"
+    dest: /etc/pki/akmods/private/
+    owner: root
+    group: akmods
+  notify:
+    - run akmods
+    - run dracut
+
+- name: copy /etc/modprobe.d/nvidia.conf
+  become: true
+  copy:
+    src: nvidia.conf
+    dest: /etc/modprobe.d/nvidia.conf
+  notify:
+    - run akmods
+    - run dracut
+
+- name: install nvidia packages
+  become: true
+  package:
+    name: "{{ item }}"
+    state: latest
+  loop:
+    - gcc
+    - kernel-headers
+    - kernel-devel
+    - akmod-nvidia
+    - xorg-x11-drv-nvidia
+    - xorg-x11-drv-nvidia-libs
+    - xorg-x11-drv-nvidia-libs.i686
+    - xorg-x11-drv-nvidia-cuda
+    - xorg-x11-drv-nvidia-cuda-libs
+    - xorg-x11-drv-nvidia-power
+  notify:
+    - run akmods
+    - run dracut
+
+- name: enable nvidia/power-saving services
+  become: true
+  systemd:
+    enabled: true
+    name: "{{ item }}"
+  loop:
+    - nvidia-hibernate.service
+    - nvidia-resume.service
+    - nvidia-suspend.service
+
+- name: disable wayland
+  become: true
+  lineinfile:
+    path: /etc/gdm/custom.conf
+    regexp: '^#WaylandEnable='
+    line: 'WaylandEnable=false'

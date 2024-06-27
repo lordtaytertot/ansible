@@ -1,0 +1,9 @@
+---
+# handlers file for nvidia
+- name: run akmods
+  become: true
+  command: /usr/sbin/akmods --rebuild
+
+- name: run dracut
+  become: true
+  command: /usr/bin/dracut --force

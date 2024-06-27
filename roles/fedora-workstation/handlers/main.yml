@@ -1,0 +1,18 @@
+---
+# handlers file for fedora-workstation
+- name: run-grub2-mkconfig
+  become: true
+  command: /usr/sbin/grub2-mkconfig -o /boot/grub2/grub.cfg
+
+- name: update ca trust
+  become: true
+  command: /usr/bin/update-ca-trust
+
+- name: restart pipewire
+  service:
+    name: "{{ item }}"
+    state: restarted
+    scope: user
+  loop:
+    - pipewire
+    - pipewire-pulse

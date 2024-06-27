@@ -1,0 +1,4 @@
+---
+- hosts: fedora_stationary
+  roles:
+    - enable-sleep

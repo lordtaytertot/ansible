@@ -1,0 +1,43 @@
+---
+# tasks file for fedora-workstation-stationary
+- name: create a mount point for zeus
+  become: true
+  file:
+    path: /mnt/zeus
+    state: directory
+    owner: james
+    group: james
+
+- name: configure /etc/fstab and mount nfs export
+  become: true
+  mount:
+    path: /mnt/zeus
+    src: zeus:/mnt/raid
+    fstype: nfs4
+    opts: _netdev
+    state: mounted
+
+- name: create symbolic links to shares on zeus
+  file:
+    src: /mnt/zeus/{{ item }}
+    dest: "{{ ansible_env.HOME }}/{{ item }}"
+    state: link
+    force: true
+  with_items:
+    - dev
+    - Archive
+    - Documents
+    - Downloads
+    - Music
+    - Pictures
+    - Videos
+
+- name: enable suspend
+  dconf:
+    key: "/org/gnome/settings-daemon/plugins/power/sleep-inactive-ac-type"
+    value: "'suspend'"
+
+- name: set suspend (a/c) timeout
+  dconf:
+    key: "/org/gnome/settings-daemon/plugins/power/sleep-inactive-ac-timeout"
+    value: '1800'

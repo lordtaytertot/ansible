@@ -1,0 +1,50 @@
+---
+- hosts: localhost
+  vars:
+    wife: awake
+  roles:
+    - wakeywakey
+  gather_facts: false
+  tasks:
+    - name: sleep for 10 seconds
+      pause:
+        seconds: 10
+
+- hosts: intel
+  roles:
+    - intel
+
+- hosts: fedora
+  roles:
+    - disable-sleep
+    - fedora-workstation
+    - PeterMosmans.customize-gnome
+
+- hosts: fedora_stationary
+  roles:
+    - fedora-workstation-stationary
+    - solaar
+
+- hosts: fedora_mobile
+  roles:
+    - fedora-workstation-mobile
+
+- hosts: fedora_dev
+  roles:
+    - fedora-developer
+
+- hosts: nvidia
+  roles:
+    - nvidia
+
+- hosts: apollo
+  roles:
+    - apollo
+
+- hosts: dionysus
+  roles:
+    - dionysus
+
+- hosts: fedora
+  roles:
+    - enable-sleep
