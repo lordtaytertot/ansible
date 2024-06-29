@@ -221,7 +221,7 @@
 - name: copy ~/.mythtv/config.xml
   copy:
     src: config.xml
-    dest: "{{ ansible_env.HOME }}/config.xml"
+    dest: "{{ ansible_env.HOME }}/.mythtv/config.xml"
     owner: james
     group: james
     mode: 0644
