@@ -52,10 +52,10 @@
         name: '*'
         state: latest
         update_cache: true
-      register: el_yum_result
+      register: el_yum_results
     - name: display dnf upgrade results
       debug:
-        var: el_yum_result['results']
+        var: el_yum_results['results']
 
 - hosts: debian
   become: true
@@ -64,10 +64,10 @@
       apt:
         update_cache: true
         upgrade: dist
-      register: debian_based_apt_result
+      register: debian_based_apt_results
     - name: display debian-based upgrade results
       debug:
-        var: debian_based_apt_result['stdout_lines']
+        var: debian_based_apt_results['stdout_lines']
 
 - hosts: fedora
   become: true
@@ -104,18 +104,18 @@
         name: '*'
         state: latest
         update_cache: true
-      register: fedora_dnf_result
+      register: fedora_dnf_results
     - name: display dnf upgrade results
       debug:
-        var: fedora_dnf_result['results']
+        var: fedora_dnf_results['results']
     - name: check if host needs restarting
       command: /usr/bin/needs-restarting -r
-      register: fedora_needs_restarting_result
-      changed_when: "'Reboot should not be necessary.' not in fedora_needs_restarting_result['stdout']"
+      register: fedora_needs_restarting_results
+      changed_when: "'Reboot should not be necessary.' not in fedora_needs_restarting_results['stdout']"
       failed_when: false
     - name: display needs restarting results
       debug:
-        var: fedora_needs_restarting_result['stdout_lines']
+        var: fedora_needs_restarting_results['stdout_lines']
 
 - hosts: fedora_dev
   gather_facts: false
