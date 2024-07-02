@@ -218,6 +218,11 @@
     value: "['<Super>Up']"
   changed_when: false  # this always gets marked as changed on apollo because it conflicts with the tiling assistant extension
 
+- name: check if ~/.mythtv/config.xml exists
+  stat:
+    path: "{{ ansible_env.HOME }}/.mythtv/config.xml"
+  register: config_xml_result
+
 - name: copy ~/.mythtv/config.xml
   copy:
     src: config.xml
@@ -225,3 +230,4 @@
     owner: james
     group: james
     mode: 0644
+  when: config_xml_result.stat.exists == false
