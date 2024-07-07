@@ -85,6 +85,11 @@
     insertafter: '^# User specific environment$'
     line: "alias t=/usr/local/bin/t.sh"
 
+- name: disable search indexing
+  dconf:
+    key: "/org/gnome/desktop/search-providers/disable-external"
+    value: "'true'"
+
 - name: set color scheme to dark
   dconf:
     key: "/org/gnome/desktop/interface/color-scheme"
