@@ -8,6 +8,15 @@
   become: true
   command: /usr/bin/update-ca-trust
 
+- name: kill tracker daemon
+  become: true
+  command: tracker3-daemon --kill
+
+- name: delete tracker cache
+  file:
+    path: "{{ ansible_env.HOME }}/.cache/tracker"
+    state: absent
+
 - name: restart pipewire
   service:
     name: "{{ item }}"

@@ -23,6 +23,23 @@
     mode: 0444
   notify: update ca trust
 
+- name: disable tracker
+  systemd_service:
+    name: "{{ item }}"
+    enabled: false
+    state: stopped
+    masked: true
+    scope: user
+  with_items:
+    - tracker-miner-fs-3.service
+    - tracker-miner-fs-control-3.service
+    - tracker-miner-rss-3.service
+    - tracker-writeback-3.service
+    - tracker-xdg-portal-3.service
+  notify:
+    - kill tracker daemon
+    - delete tracker cache
+
 - name: remove desktop, public, and templates subdirectories
   file:
     path: "{{ ansible_env.HOME }}/{{ item }}"
@@ -84,11 +101,6 @@
     path: "{{ ansible_env.HOME }}/.bashrc"
     insertafter: '^# User specific environment$'
     line: "alias t=/usr/local/bin/t.sh"
-
-- name: disable search indexing
-  dconf:
-    key: "/org/gnome/desktop/search-providers/disable-external"
-    value: "'true'"
 
 - name: set color scheme to dark
   dconf:
