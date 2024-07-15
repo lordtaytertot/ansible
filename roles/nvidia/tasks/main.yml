@@ -1,5 +1,11 @@
 ---
 # tasks file for nvidia
+- name: install akmods
+  become: True
+  package:
+    name: akmods
+    state: latest
+
 - name: copy akmods certificate
   become: true
   copy:
