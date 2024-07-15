@@ -235,6 +235,11 @@
     value: "['<Super>Up']"
   changed_when: false  # this always gets marked as changed on apollo because it conflicts with the tiling assistant extension
 
+- name: create ~/.mythtv
+  file:
+    path: "{{ ansible_env.HOME }}/.mythtv/"
+    state: directory
+
 - name: check if ~/.mythtv/config.xml exists
   stat:
     path: "{{ ansible_env.HOME }}/.mythtv/config.xml"
