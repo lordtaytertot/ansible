@@ -28,11 +28,17 @@
         var: pip_results['results']|map(attribute='stdout_lines')|list
 
 - hosts: windows
-  gather_facts: false
   tasks:
     - name: upgrade all packages on windows hosts
       win_updates:
-        category_names: '*'
+        category_names:
+          - Updates
+          - SecurityUpdates
+          - CriticalUpdates
+          - UpdateRollups
+        state: installed
+        reboot: yes
+        reboot_timeout: 3600
       register: windows_update_results
     - name: display windows update results
       debug:
