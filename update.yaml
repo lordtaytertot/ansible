@@ -32,16 +32,7 @@
     - name: upgrade all packages on windows hosts
       win_updates:
         category_names:
-          #- '*'
-          - CriticalUpdates
-          - DefinitionUpdates
-          - FeaturePacks
-          - SecurityUpdates
-          - ServicePacks
-          - Tools
-          - Update Rollups
-          - Updates
-          - Upgrades
+          - "'*'"
         state: installed
         reboot: yes
         reboot_timeout: 3600
