@@ -3,7 +3,7 @@ talosconsulting.io
 
 [el:children]
 baremetal
-#vm
+vm
 
 [baremetal]
 localhost
@@ -34,11 +34,11 @@ hermes
 [intel]
 apollo
 hermes
+hypnos
 #heph
 
 [nvidia]
 dionysus
-hypnos
 
 [windows]
 ares
