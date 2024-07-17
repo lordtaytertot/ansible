@@ -29,7 +29,7 @@
 
 - hosts: windows
   tasks:
-    - name: upgrade all packages on windows hosts
+    - name: upgrade windows hosts
       win_updates:
         category_names:
           - "'*'"
@@ -39,7 +39,7 @@
       register: windows_update_results
     - name: display windows update results
       debug:
-        var: windows_update_results
+        var: windows_update_results['updates']
 
 - hosts: el
   vars:
