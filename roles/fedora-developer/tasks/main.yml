@@ -107,3 +107,28 @@
     src: kubectl-neat
     dest: /usr/local/bin/
     mode: '755'
+
+- name: enable night light
+  dconf:
+    key: "/org/gnome/settings-daemon/plugins/color/night-light-enabled"
+    value: "true"
+
+- name: disable night light automatic schedule
+  dconf:
+    key: "/org/gnome/settings-daemon/plugins/color/night-light-schedule-automatic"
+    value: "false"
+
+- name: set night light manual schedule start
+  dconf:
+    key: "/org/gnome/settings-daemon/plugins/color/night-light-schedule-from"
+    value: "0.0"
+
+- name: set night light manual schedule end
+  dconf:
+    key: "/org/gnome/settings-daemon/plugins/color/night-light-schedule-to"
+    value: "0.0"
+
+- name: set night light temperature
+  dconf:
+    key: "/org/gnome/settings-daemon/plugins/color/night-light-temperature"
+    value: "uint32 3700"
