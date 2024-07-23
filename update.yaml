@@ -15,8 +15,8 @@
     - name: upgrade PyPI packages
       pip:
         name: "{{ item }}"
-        extra_args: --user
         state: latest
+        virtualenv: /mnt/raid/dev/py12-venv/
       register: pip_results
       loop:
         - pip
