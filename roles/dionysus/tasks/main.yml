@@ -8,6 +8,7 @@
   loop:
     - cronie
     - openal-soft
+    - pulseaudio-utils
     - SDL2-devel
 
 - name: enable crond
