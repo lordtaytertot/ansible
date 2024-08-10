@@ -41,23 +41,3 @@
     owner: james
     group: james
     mode: 0644
-
-- name: copy Ryujinx.svg to /usr/share/icons/
-  become: true
-  copy:
-    src: Ryujinx.svg
-    dest: /usr/share/icons/
-    owner: root
-    group: root
-    mode: 0644
-  notify: run update-desktop-database
-
-- name: copy Ryujinx.desktop to /usr/share/applications/
-  become: true
-  copy:
-    src: Ryujinx.desktop
-    dest: /usr/share/applications/
-    owner: root
-    group: root
-    mode: 0644
-  notify: run update-desktop-database
