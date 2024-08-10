@@ -212,7 +212,7 @@
 - name: configure gnome favorites
   dconf:
     key: "/org/gnome/shell/favorite-apps"
-    value: "['google-chrome.desktop', 'mythfrontend.desktop', 'org.gnome.TextEditor.desktop', 'code.desktop', 'org.gnome.Nautilus.desktop', 'org.gnome.Console.desktop']"
+    value: "['google-chrome.desktop', 'mythfrontend.desktop', 'Ryujinx.desktop', 'org.gnome.TextEditor.desktop', 'code.desktop', 'org.gnome.Nautilus.desktop', 'org.gnome.Console.desktop']"
 
 - name: disable gnome weather automatic location-sensing
   dconf:
