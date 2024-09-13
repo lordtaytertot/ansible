@@ -28,6 +28,13 @@
     - name: display pip upgrade results
       debug:
         var: pip_results['results']|map(attribute='stdout_lines')|list
+    - name: upgrade Rclone
+      command: /usr/local/bin/rclone selfupdate
+      register: rclone_results
+      changed_when: "'rclone is up to date' not in rclone_results['stderr']"
+    - name: display rclone selfupdate results
+      debug:
+        var: rclone_results['stdout']
 
 - hosts: windows
   tasks:
