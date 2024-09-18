@@ -32,3 +32,12 @@
     - cups
     - libnsl
     - system-config-printer
+
+- name: copy bookmarks.sh
+  become: true
+  copy:
+    src: bookmarks.sh
+    dest: /usr/local/bin/
+    owner: james
+    group: james
+    mode: 0700
