@@ -15,7 +15,6 @@ cp "${HOME}/.config/google-chrome/${PERSONAL_PROFILE}/Bookmarks" ${PERSONAL_SOUR
 jq 'del(.roots.bookmark_bar.children[0].children[0,1,2,5],.roots.bookmark_bar.children[32:])' ${PERSONAL_SOURCE_FILE} > ${PERSONAL_APOLLO_PATH}
 ssh zeus "rclone copyto ${PERSONAL_ZEUS_PATH} onedrive:/bookmarks/personal.json && rm ${PERSONAL_ZEUS_PATH}"
 
-
 cp "${HOME}/.config/google-chrome/${BUSINESS_PROFILE}/Bookmarks" ${BUSINESS_SOURCE_FILE}
 jq 'del(.roots.bookmark_bar.children[0])' $BUSINESS_SOURCE_FILE > $BUSINESS_APOLLO_PATH
 ssh zeus "rclone copyto ${BUSINESS_ZEUS_PATH} onedrive:/bookmarks/business.json && rm ${BUSINESS_ZEUS_PATH}"
