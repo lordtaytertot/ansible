@@ -147,10 +147,10 @@
     key: "/org/gnome/desktop/peripherals/touchpad/tap-to-click"
     value: "true"
 
-- name: set display timeout to 15m
+- name: set display timeout to 30m
   dconf:
     key: "/org/gnome/desktop/session/idle-delay"
-    value: "uint32 900"
+    value: "uint32 1800"
 
 - name: disable event sounds
   dconf:
