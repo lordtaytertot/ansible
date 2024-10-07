@@ -32,7 +32,7 @@
 
 - name: extract Ryujinx
   unarchive:
-    src: ryujinx-1.1.1373-linux_x64.tar.gz
+    src: ryujinx-1.1.1403-linux_x64.tar.gz
     dest: "{{ ansible_env.HOME }}/.local/bin/"
     extra_opts: --strip-components=1
   when: stat_ryu_result.stat.exists == false
@@ -68,4 +68,3 @@
     src: /mnt/raid/Archive/Gaming/Nintendo Switch/ROMs/
     dest: "{{ ansible_env.HOME }}/ROMs"
   when: stat_ROMs_result.stat.exists == false
-
