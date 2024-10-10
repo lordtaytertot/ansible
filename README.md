@@ -19,3 +19,12 @@ alias rsasleep="cd ~/dev/ansible/ && ansible-playbook wakeywakey.yaml -e 'wife=s
 alias morework="cd ~/dev/ansible/ && ansible-playbook wakeywakey.yaml ; sleep 10s ; ansible-playbook morework.yaml ; cd -"
 alias jobsdone="cd ~/dev/ansible/ && ansible-playbook wakeywakey.yaml ; sleep 10s ; ansible-playbook jobsdone.yaml ; cd -"
 ```
+
+## Windows Resources
+* https://docs.ansible.com/ansible/latest/os_guide/windows_setup.html#windows-ssh-setup
+* https://stackoverflow.com/questions/16212816/setting-up-openssh-for-windows-using-public-key-authentication
+** Specifically, "If your Windows build is 1809 or later, it is required to comment out the following lines in C:\ProgramData\ssh\sshd_config file. Then restart the sshd service.
+```
+# Match Group administrators
+#       AuthorizedKeysFile __PROGRAMDATA__/ssh/administrators_authorized_keys
+```
