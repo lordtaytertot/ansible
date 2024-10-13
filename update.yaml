@@ -16,7 +16,7 @@
       pip:
         name: "{{ item }}"
         state: latest
-        virtualenv: /mnt/raid/dev/py12-venv/
+        executable: "{{ ansible_user_dir }}/.conda/envs/py313/bin/pip"
       register: pip_results
       loop:
         - pip
