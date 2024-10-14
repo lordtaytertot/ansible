@@ -16,11 +16,13 @@
       pip:
         name: "{{ item }}"
         state: latest
-        executable: "{{ ansible_user_dir }}/.conda/envs/py313/bin/pip"
+        executable: /usr/bin/pip3.12
+        extra_args: --user
       register: pip_results
       loop:
         - pip
         - ansible
+        - boto3
         - pip-review
         - podman-compose
         - stig
