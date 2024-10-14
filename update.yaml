@@ -22,6 +22,7 @@
       loop:
         - pip
         - ansible
+        - ansible-core
         - boto3
         - pip-review
         - podman-compose
