@@ -26,13 +26,10 @@
   with_items:
     - dev
     - Archive
-    - Desktop
     - Documents
     - Downloads
     - Music
     - Pictures
-    - Public
-    - Templates
     - Videos
 
 - name: enable suspend
