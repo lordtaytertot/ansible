@@ -8,17 +8,9 @@
 
 - name: enable automatic installation of updates
   become: true
-  lineinfile:
-    path: /etc/dnf/automatic.conf
-    regexp: '^apply_updates'
-    line: 'apply_updates = yes'
-
-- name: start and enable dnf-automatic.timer
-  become: true
-  systemd:
-    name: dnf-automatic-install.timer
-    state: started
-    enabled: true
+  copy:
+    src: automatic.conf
+    dest: /etc/dnf/automatic.conf
 
 - name: enable suspend
   dconf:
