@@ -1,0 +1,7 @@
+---
+# tasks file for hypnos
+- name: install dkms-r8168
+  become: true
+  community.general.copr:
+    name: 'sunwire/dkms-r8168'
+    includepkgs: dkms-r8168

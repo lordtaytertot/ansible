@@ -45,6 +45,10 @@
   roles:
     - dionysus
 
+- hosts: hypnos
+  roles:
+    - hypnos
+
 - hosts: fedora
   roles:
     - enable-sleep
