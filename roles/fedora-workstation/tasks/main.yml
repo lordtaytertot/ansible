@@ -174,10 +174,40 @@
     key: "/org/gnome/desktop/wm/preferences/visual-bell"
     value: "false"
 
-- name: set font scale to 120%
+- name: set ptyxis profile
   dconf:
-    key: "/org/gnome/Console/font-scale"
-    value: "1.2"
+    key: "/org/gnome/Ptyxis/profile-uuids"
+    value: "['8ace1151de46338b9742684167297aff']"
+
+- name: set default ptyxis profile
+  dconf:
+    key: "/org/gnome/Ptyxis/default-profile-uuid"
+    value: "'8ace1151de46338b9742684167297aff'"
+
+- name: set ptyxis apperance to follow system
+  dconf:
+    key: "/org/gnome/Ptyxis/interface-style"
+    value: "'system'"
+
+- name: set ptyxis font
+  dconf:
+    key: "/org/gnome/Ptyxis/use-system-font"
+    value: "false"
+
+- name: set ptyxis font
+  dconf:
+    key: "/org/gnome/Ptyxis/font-name"
+    value: "'Monospace 12'"
+
+- name: enable bolding of colors
+  dconf:
+    key: "/org/gnome/Ptyxis/Profiles/8ace1151de46338b9742684167297aff/bold-is-bright"
+    value: "true"
+
+- name: enable bolding of colors
+  dconf:
+    key: "/org/gnome/Ptyxis/Profiles/8ace1151de46338b9742684167297aff/label"
+    value: "'Default'"
 
 - name: move window buttons to right
   dconf:
