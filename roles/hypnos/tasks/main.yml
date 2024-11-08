@@ -1,5 +1,11 @@
 ---
 # tasks file for hypnos
+- name: install akmods
+  become: true
+  package:
+    name: akmods
+    state: latest
+
 - name: install dkms-r8168
   become: true
   community.general.copr:
