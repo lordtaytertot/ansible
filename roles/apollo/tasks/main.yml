@@ -33,11 +33,14 @@
     - libnsl
     - system-config-printer
 
-- name: copy bookmarks.sh
+- name: create shell wrappers to /usr/local/bin/
   become: true
   copy:
-    src: bookmarks.sh
-    dest: /usr/local/bin/
+    src: "{{ item }}"
+    dest: "/usr/local/bin/{{ item }}"
     owner: james
     group: james
     mode: 0700
+  with_items:
+    - ares.sh
+    - bookmarks.sh
