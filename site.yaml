@@ -45,9 +45,9 @@
   roles:
     - dionysus
 
-- hosts: hypnos
-  roles:
-    - hypnos
+#- hosts: hypnos
+#  roles:
+#    - hypnos
 
 - hosts: fedora
   roles:
