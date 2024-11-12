@@ -1,2 +1,9 @@
 ---
 # handlers file for hypnos
+- name: enable wol.service
+  become: true
+  systemd_service:
+    name: wol.service
+    state: started
+    enabled: true
+    daemon_reload: true
