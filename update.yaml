@@ -34,7 +34,7 @@
 - hosts: localhost
   become: true
   tasks:
-    - name: upgrade Rclone
+    - name: upgrade rclone
       command: /usr/local/bin/rclone selfupdate
       register: rclone_results
       changed_when: "'rclone is up to date' not in rclone_results['stderr']"
