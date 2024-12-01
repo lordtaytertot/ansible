@@ -25,7 +25,6 @@
         - boto3
         - pip-review
         - podman-compose
-        - stig
         - yt-dlp
     - name: display pip upgrade results
       debug:
