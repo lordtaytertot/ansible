@@ -18,7 +18,6 @@
   roles:
     - disable-sleep
     - fedora-workstation
-    - PeterMosmans.customize-gnome
 
 - hosts: fedora_stationary
   roles:
