@@ -1,0 +1,17 @@
+---
+- hosts: localhost
+  vars:
+    wife: awake
+  roles:
+    - wakeywakey
+  gather_facts: false
+  tasks:
+    - name: sleep for 10 seconds
+      pause:
+        seconds: 10
+
+- hosts: fedora
+  roles:
+    - disable-sleep
+    - PeterMosmans.customize-gnome
+    - enable-sleep
