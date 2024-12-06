@@ -10,14 +10,15 @@ ansible-galaxy role install PeterMosmans.customize-gnome
 mkdir -p ~/dev/ && cd ~/dev/ && git clone https://github.com/lordtaytertot/ansible.git
 
 # ~/.bashrc
-alias update="cd ~/dev/ansible/ && ansible-playbook update.yaml -e 'clean=true' ; cd -"
-alias updateasleep="cd ~/dev/ansible/ && ansible-playbook update.yaml -e 'clean=true' -e 'wife=sleeping' ; cd -"
-alias site="cd ~/dev/ansible/ && ansible-playbook site.yaml ; cd -"
-alias siteasleep="cd ~/dev/ansible/ && ansible-playbook site.yaml -e 'wife=sleeping' ; cd -"
-alias rs="cd ~/dev/ansible/ && ansible-playbook wakeywakey.yaml ; sleep 10s ; ansible fedora_stationary -b -m reboot ; cd -"
-alias rsasleep="cd ~/dev/ansible/ && ansible-playbook wakeywakey.yaml -e 'wife=sleeping' ; sleep 10s ; ansible fedora_stationary -b -m reboot ; cd -"
-alias morework="cd ~/dev/ansible/ && ansible-playbook wakeywakey.yaml ; sleep 10s ; ansible-playbook morework.yaml ; cd -"
-alias jobsdone="cd ~/dev/ansible/ && ansible-playbook wakeywakey.yaml ; sleep 10s ; ansible-playbook jobsdone.yaml ; cd -"
+alias update='cd /mnt/raid/dev/ansible/ ; ansible-playbook update.yaml ; cd -'
+alias updateasleep='cd /mnt/raid/dev/ansible/ ; ansible-playbook update.yaml -e "wife=sleeping" ; cd -'
+alias updateclean='cd /mnt/raid/dev/ansible/ ; ansible-playbook update.yaml -e "clean=true" ; cd -'
+alias updatecleanasleep='cd /mnt/raid/dev/ansible/ ; ansible-playbook update.yaml -e "clean=true" -e "wife=sleeping" ; cd -'
+alias site='cd /mnt/raid/dev/ansible/ ; ansible-playbook site.yaml ; cd -'
+alias siteasleep='cd /mnt/raid/dev/ansible/ ; ansible-playbook site.yaml -e "wife=sleeping" ; cd -'
+alias wakeywakey='cd /mnt/raid/dev/ansible/ ; ansible-playbook wakeywakey.yaml ; cd -'
+alias wakeywakeyasleep='cd /mnt/raid/dev/ansible/ ; ansible-playbook wakeywakey.yaml -e "wife=sleeping" ; cd -'
+alias rs='cd /mnt/raid/dev/ansible/ ; ansible fedora_stationary -b -m reboot ; cd -'
 ```
 
 ## Windows Resources
