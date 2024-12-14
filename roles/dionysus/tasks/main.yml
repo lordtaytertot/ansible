@@ -22,7 +22,7 @@
 - name: keep soundbar alive
   cron:
     name: "Keep soundbar alive"
-    minute: "*/14"
+    minute: "*/10"
     job: "/usr/bin/paplay /mnt/zeus/Archive/Linux/Dionysus/19999.wav"
 
 - name: copy monitors.xml to /var/lib/gdm/.config/
