@@ -32,6 +32,7 @@
     - cups
     - libnsl
     - system-config-printer
+    - xcb-util-cursor
 
 - name: create shell wrappers to /usr/local/bin/
   become: true
