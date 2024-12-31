@@ -45,3 +45,4 @@
   with_items:
     - ares.sh
     - bookmarks.sh
+    - books.sh
