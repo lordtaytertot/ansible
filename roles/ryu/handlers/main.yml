@@ -1,5 +1,0 @@
----
-# handlers file for ryu
-- name: run update-desktop-database
-  become: true
-  command: /usr/bin/update-desktop-database
