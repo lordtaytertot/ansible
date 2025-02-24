@@ -3,7 +3,7 @@ talosconsulting.io
 
 [el:children]
 baremetal
-#vm
+vm
 
 [baremetal]
 localhost
