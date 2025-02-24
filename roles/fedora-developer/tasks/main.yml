@@ -25,7 +25,6 @@
     - freerdp
     - git
     - helm
-    - kubernetes-client
     - podman
 
 - name: install podman-compose
@@ -76,6 +75,13 @@
     src: config
     dest: "{{ ansible_env.HOME }}/.kube/config"
     mode: '0600'
+
+- name: install kubectl
+  become: true
+  copy:
+    src: kubectl
+    dest: /usr/local/bin/
+    mode: '0755'
 
 - name: install kubie
   become: true
