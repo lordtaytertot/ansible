@@ -19,12 +19,6 @@
     masked: false
     name: crond.service
 
-- name: keep soundbar alive
-  cron:
-    name: "Keep soundbar alive"
-    minute: "*/10"
-    job: "/usr/bin/paplay /mnt/zeus/Archive/Linux/Dionysus/19999.wav"
-
 - name: copy monitors.xml to /var/lib/gdm/.config/
   become: true
   copy:
@@ -41,3 +35,16 @@
     owner: james
     group: james
     mode: 0644
+
+- name: keep soundbar alive
+  cron:
+    name: "Keep soundbar alive"
+    minute: "*/10"
+    job: "/usr/bin/paplay /mnt/zeus/Archive/Linux/Dionysus/19999.wav"
+
+- name: set mythfrontend to use XCB
+  become: true
+  lineinfile:
+    path: /usr/share/applications/mythfrontend.desktop
+    regexp: '^Exec=mythfrontend'
+    line: Exec=mythfrontend -platform xcb
