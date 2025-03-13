@@ -36,6 +36,10 @@
   roles:
     - nvidia
 
+- hosts: hermes,hypnos
+  roles:
+    - xcb
+
 - hosts: apollo
   roles:
     - apollo

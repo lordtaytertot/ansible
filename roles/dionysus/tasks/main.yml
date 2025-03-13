@@ -41,10 +41,3 @@
     name: "Keep soundbar alive"
     minute: "*/10"
     job: "/usr/bin/paplay /mnt/zeus/Archive/Linux/Dionysus/19999.wav"
-
-- name: set mythfrontend to use XCB
-  become: true
-  lineinfile:
-    path: /usr/share/applications/mythfrontend.desktop
-    regexp: '^Exec=mythfrontend'
-    line: Exec=mythfrontend -platform xcb
