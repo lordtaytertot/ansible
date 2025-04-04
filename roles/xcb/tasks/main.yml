@@ -5,5 +5,5 @@
   become: true
   lineinfile:
     path: /usr/share/applications/mythfrontend.desktop
-    regexp: '^Exec=mythfrontend'
+    regexp: '^Exec=mythfrontend$'
     line: Exec=mythfrontend -platform xcb
