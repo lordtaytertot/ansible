@@ -116,6 +116,18 @@
     dest: /usr/local/bin/
     mode: '755'
 
+- name: install stern
+  become: true
+  copy:
+    src: stern
+    dest: /usr/local/bin/
+    mode: '755'
+
+- name: install stern bash completion
+  shell:
+    cmd: "/usr/local/bin/stern --completion bash > {{ ansible_env.HOME }}/.local/share/bash-completion/completions/stern"
+    creates: "{{ ansible_env.HOME }}/.local/share/bash-completion/completions/stern"
+
 - name: enable night light
   dconf:
     key: "/org/gnome/settings-daemon/plugins/color/night-light-enabled"
