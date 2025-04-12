@@ -1,5 +1,11 @@
 ---
 # tasks file for fedora-developer
+- name: make directory for bash completion files
+  file:
+    path: "{{ ansible_env.HOME }}/.local/share/bash-completion/completions/"
+    state: directory
+    recurse: true
+
 - name: add visual studio code dnf repository
   become: true
   yum_repository:
@@ -96,10 +102,9 @@
     dest: "{{ ansible_env.HOME }}/.kube/kubie.yaml"
 
 - name: install kubie bash completion
-  become: true
   get_url:
     url: https://raw.githubusercontent.com/sbstp/kubie/master/completion/kubie.bash
-    dest: /etc/bash_completion.d/
+    dest: "{{ ansible_env.HOME }}/.local/share/bash-completion/completions/"
     mode: '644'
 
 - name: install kustomize
