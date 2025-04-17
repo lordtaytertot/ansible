@@ -1,7 +1,7 @@
 ---
 # tasks file for hypnos
 - name: copy wol.service
-  become:
+  become: true
   copy:
     src: wol.service
     dest: /etc/systemd/system/wol.service
