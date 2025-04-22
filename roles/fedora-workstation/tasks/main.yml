@@ -40,6 +40,20 @@
     - kill tracker daemon
     - delete tracker cache
 
+- name: add pgdev/jellyfin copr
+  become: true
+  community.general.copr:
+    name: 'pgdev/jellyfin'
+
+- name: install jellyfin-media-player and its dependencies
+  become: true
+  dnf:
+    name:
+      - qt5-qtquickcontrols
+      - qt5-qtquickcontrols2
+      - jellyfin-media-player
+    state: latest
+
 - name: remove desktop, public, and templates subdirectories
   file:
     path: "{{ ansible_env.HOME }}/{{ item }}"
