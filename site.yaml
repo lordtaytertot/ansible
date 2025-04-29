@@ -18,6 +18,7 @@
   roles:
     - disable-sleep
     - fedora-workstation
+    - jaredhocutt.gnome_extensions
 
 - hosts: fedora_stationary
   roles:

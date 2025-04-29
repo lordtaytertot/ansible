@@ -1,4 +1,0 @@
----
-- hosts: fedora
-  roles:
-    - PeterMosmans.customize-gnome

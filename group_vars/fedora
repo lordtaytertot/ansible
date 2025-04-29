@@ -1,8 +1,5 @@
 ---
 gnome_user: james
-gnome_extensions:
-  - id: 517
-    enable: True
-  - id: 5470
-    enable: True
-customize_gnome__skip_restart_gnome_shell: true
+gnome_extension_ids:
+  - 517
+  - 5470
