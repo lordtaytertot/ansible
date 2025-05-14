@@ -45,9 +45,7 @@
   tasks:
     - name: upgrade windows hosts
       win_updates:
-        category_names:
-          - "'*'"
-        state: installed
+        category_names: '*'
         reboot: yes
         reboot_timeout: 3600
       register: windows_update_results
